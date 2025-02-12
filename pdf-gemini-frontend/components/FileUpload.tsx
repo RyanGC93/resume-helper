@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from "react";
 import axios from "axios";
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 // Define types for state
 interface ResponseData {
@@ -51,7 +52,7 @@ export default function FileUpload() {
             {summary && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
                     <h2 className="font-bold">Summary:</h2>
-                    <p>{summary}</p>
+                    <MarkdownPreview source={summary} />
                 </div>
             )}
         </div>

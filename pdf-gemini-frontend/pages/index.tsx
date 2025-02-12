@@ -1,12 +1,18 @@
+import { AppProps } from 'next/app';
 import VoiceInput from "../components/VoiceInput";
 import FileUpload from "../components/FileUpload";
-export default function Home() {
-  
+import { AuthProvider } from "../contexts/AuthContext";
 
-    return (
-        <div>
-            <FileUpload/>
-            <VoiceInput />
-        </div>
-    );
-}
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <AuthProvider>
+      <div>
+        <FileUpload />
+        <VoiceInput />
+        {/* <Component {...pageProps} /> */}
+      </div>
+     </AuthProvider>
+  );
+};
+
+export default MyApp;
