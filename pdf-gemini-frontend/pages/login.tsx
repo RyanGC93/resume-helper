@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles/LoginPage.css';
 import { useRouter } from 'next/router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { auth,signInWithGoogle } from '../lib/firebase';
 import Modal from '../components/Modal';
 import Link from 'next/link'
 
@@ -31,11 +31,13 @@ function LoginPage() {
       });
   };
 
-  const handleDemoLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setEmail(process.env.NEXT_PUBLIC_DEMO_USER || '');
-    setPassword(process.env.NEXT_PUBLIC_DEMO_PASSWORD || '');
-    handleLogin(e);
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      router.push("/"); // Redirect to home page after successful Google sign-in
+    } catch (error) {
+      setErrorMessage("Google sign-in failed. Please try again.");
+    }
   };
 
   return (
@@ -68,7 +70,7 @@ function LoginPage() {
         <button type="submit">Login</button>
         <div className="or-separator"></div>
         <button type="button" onClick={handleGoogleSignIn}>
-          Sign Up with Google
+          Sign In with Google
         </button>
         <h3>
           Don't have an account? <Link href="/signup">Sign Up</Link>
