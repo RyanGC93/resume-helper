@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";  // For Firestore example
+import { useRouter } from "next/router";
+
 
 
 // const firebaseConfig = {
@@ -27,8 +29,21 @@ console.log("ge",firebaseConfig)
 
 const app = initializeApp(firebaseConfig);
 
+export const signInWithGoogle = async (): Promise<void> => {
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log("User:", result.user);
+      
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+    }
+  };
 // Export Firebase services
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
+export const googleProvider = new GoogleAuthProvider();
+
+
 
 export default app;
