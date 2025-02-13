@@ -1,3 +1,4 @@
 node_modules/
 .env
 .env.local
+google-app.cred.json
